@@ -47,7 +47,7 @@
                 BackgroundColor="#f0f0f0"
                 FontSize="Medium"
                 VerticalOptions="Center"
-                Text="{Binding CatidadAComprar}"/>
+                Text="{Binding CantidadAComprar}"/>
             <Button
                 Text="+"
                 Grid.Row="0"
