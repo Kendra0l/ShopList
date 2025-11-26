@@ -12,6 +12,8 @@ namespace ShopList.Gui.ViewModels
         private string _nombreDelArticulo = string.Empty;
         [ObservableProperty]
         private int _cantidadAComprar = 1;
+        [ObservableProperty]
+        private Item? _id=null;
 
         public ObservableCollection<Item> Items { get; }
 
@@ -20,7 +22,6 @@ namespace ShopList.Gui.ViewModels
         {
             Items = new ObservableCollection<Item>();
             CargarDatos();
-            //AgregarShopListItemCommand = new Command(AgregarShopListItem);
         }
 
 
@@ -48,9 +49,31 @@ namespace ShopList.Gui.ViewModels
             CantidadAComprar = 1;
         }
         [RelayCommand]
-        public void EliminarShopList()
+        public void EliminarShopListItem()
         {
 
+            if(Id != null)
+            {
+                var indice = Items.IndexOf(Id);
+                Item? nuevoSeleccionado;
+                if (Items.Count > 1)
+                {
+                    if (indice < Items.Count - 1)
+                    {
+                        nuevoSeleccionado=Items[indice+1];
+                    }
+                    else
+                    {
+                        nuevoSeleccionado = Items[indice - 1];
+                    }
+                }
+                else
+                {
+                    nuevoSeleccionado=null;
+                }
+                Items.Remove(Id);
+                Id = nuevoSeleccionado;
+            }
         }
         private void CargarDatos()
         {
@@ -78,9 +101,5 @@ namespace ShopList.Gui.ViewModels
                 Comprado = false,
             });
         }
-        //private void OnPropertyChange(string propertyName)
-        //{
-        //    PropertyChanged? .Invoke(this, new PropertyChangedEventArgs(propertyName));
-        //}
     }
 }
